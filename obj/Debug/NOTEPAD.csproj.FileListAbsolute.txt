@@ -1,0 +1,10 @@
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\bin\Debug\NOTEPAD.exe.config
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\bin\Debug\NOTEPAD.exe
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\bin\Debug\NOTEPAD.pdb
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\obj\Debug\NOTEPAD.csproj.AssemblyReference.cache
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\obj\Debug\NOTEPAD.Form1.resources
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\obj\Debug\NOTEPAD.Properties.Resources.resources
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\obj\Debug\NOTEPAD.csproj.GenerateResource.cache
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\obj\Debug\NOTEPAD.csproj.CoreCompileInputs.cache
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\obj\Debug\NOTEPAD.exe
+C:\Users\ASUS\Documents\作業\NOTEPAD\NOTEPAD\obj\Debug\NOTEPAD.pdb
