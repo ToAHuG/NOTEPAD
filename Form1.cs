@@ -104,6 +104,45 @@ namespace NOTEPAD
                 MessageBox.Show("使用者取消了儲存檔案操作。", "訊息", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             }
         }
+
+        private Stack<string> textHistory = new Stack<string>();
+        private const int MaxHistoryCount = 10; // 最多紀錄10個紀錄
+
+        private void rtbText_TextChanged(object sender, EventArgs e)
+        {
+            // 將當前的文本內容加入堆疊
+            textHistory.Push(rtbText.Text);
+
+            // 確保堆疊中只保留最多10個紀錄
+            if (textHistory.Count > MaxHistoryCount)
+            {
+                // 用一個臨時堆疊，將除了最下面一筆的文字記錄之外，將文字紀錄堆疊由上而下，逐一移除再堆疊到臨時堆疊之中
+                Stack<string> tempStack = new Stack<string>();
+                for (int i = 0; i < MaxHistoryCount; i++)
+                {
+                    tempStack.Push(textHistory.Pop());
+                }
+                textHistory.Clear(); // 清空堆疊
+                                     // 文字編輯堆疊紀錄清空之後，再將暫存堆疊（tempStack）中的資料，逐一放回到文字編輯堆疊紀錄
+                foreach (string item in tempStack)
+                {
+                    textHistory.Push(item);
+                }
+            }
+            UpdateListBox(); // 更新 ListBox          
+        }
+
+        // 更新 ListBox
+        void UpdateListBox()
+        {
+            listUndo.Items.Clear(); // 清空 ListBox 中的元素
+
+            // 將堆疊中的內容逐一添加到 ListBox 中
+            foreach (string item in textHistory)
+            {
+                listUndo.Items.Add(item);
+            }
+        }
     }
     }
   
