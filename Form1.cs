@@ -18,6 +18,10 @@ namespace NOTEPAD
             InitializeComponent();
         }
 
+        private bool isUndoRedo = false;                           
+        private Stack<string> undoStack = new Stack<string>();     
+        private Stack<string> redoStack = new Stack<string>();     
+        private const int MaxHistoryCount = 10;
         private void btnOpen_Click(object sender, EventArgs e)
         {
             
@@ -104,56 +108,70 @@ namespace NOTEPAD
                 MessageBox.Show("使用者取消了儲存檔案操作。", "訊息", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             }
         }
-        private Stack<string> textHistory = new Stack<string>();
-        private const int MaxHistoryCount = 10; 
-        private bool isUndo = false;
         private void btnUndo_Click(object sender, EventArgs e)
         {
-            isUndo = true;
-            if (textHistory.Count > 1)
+            if (undoStack.Count > 1)
             {
-                textHistory.Pop(); 
-                rtbText.Text = textHistory.Peek();               
+                isUndoRedo = true;
+                redoStack.Push(undoStack.Pop()); // 將回復堆疊最上面的紀錄移出，再堆到重作堆疊
+                rtbText.Text = undoStack.Peek(); // 將回復堆疊最上面一筆紀錄顯示
+                UpdateListBox();
+                isUndoRedo = false;
             }
-            UpdateListBox(); 
-            isUndo = false;
+        }
+
+        private void btnRedo_Click(object sender, EventArgs e)
+        {
+            if (redoStack.Count > 0)
+            {
+                isUndoRedo = true;
+                undoStack.Push(redoStack.Pop()); // 將重作堆疊最上面的紀錄移出，再堆到回復堆疊
+                rtbText.Text = undoStack.Peek(); // 將回復堆疊最上面一筆紀錄顯示
+                UpdateListBox();
+                isUndoRedo = false;
+            }
         }
 
         private void rtbText_TextChanged(object sender, EventArgs e)
         {
-            if (isUndo == false)
+            // 只有當isUndo這個變數是false的時候，才能堆疊文字編輯紀錄
+            if (isUndoRedo == false)
             {
-               
-                textHistory.Push(rtbText.Text);
+                undoStack.Push(rtbText.Text); // 將當前的文本內容加入堆疊
+                redoStack.Clear();            // 清空重作堆疊
 
-                if (textHistory.Count > MaxHistoryCount)
-                {                    
+                // 確保堆疊中只保留最多10個紀錄
+                if (undoStack.Count > MaxHistoryCount)
+                {
+                    // 用一個臨時堆疊，將除了最下面一筆的文字記錄之外，將文字紀錄堆疊由上而下，逐一移除再堆疊到臨時堆疊之中
                     Stack<string> tempStack = new Stack<string>();
                     for (int i = 0; i < MaxHistoryCount; i++)
                     {
-                        tempStack.Push(textHistory.Pop());
+                        tempStack.Push(undoStack.Pop());
                     }
-                    textHistory.Clear(); 
+                    undoStack.Clear(); // 清空堆疊
+                                       // 文字編輯堆疊紀錄清空之後，再將暫存堆疊（tempStack）中的資料，逐一放回到文字編輯堆疊紀錄
                     foreach (string item in tempStack)
                     {
-                        textHistory.Push(item);
+                        undoStack.Push(item);
                     }
                 }
-                UpdateListBox(); 
+                UpdateListBox(); // 更新 ListBox
             }
         }
 
+        // 更新 ListBox
         void UpdateListBox()
         {
-            listUndo.Items.Clear(); 
+            listUndo.Items.Clear(); // 清空 ListBox 中的元素
 
-
-            foreach (string item in textHistory)
+            // 將堆疊中的內容逐一添加到 ListBox 中
+            foreach (string item in undoStack)
             {
                 listUndo.Items.Add(item);
             }
         }
     }
-    }
+}
   
 
