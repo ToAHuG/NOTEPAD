@@ -113,8 +113,8 @@ namespace NOTEPAD
             if (undoStack.Count > 1)
             {
                 isUndoRedo = true;
-                redoStack.Push(undoStack.Pop()); // 將回復堆疊最上面的紀錄移出，再堆到重作堆疊
-                rtbText.Text = undoStack.Peek(); // 將回復堆疊最上面一筆紀錄顯示
+                redoStack.Push(undoStack.Pop()); 
+                rtbText.Text = undoStack.Peek(); 
                 UpdateListBox();
                 isUndoRedo = false;
             }
@@ -125,8 +125,8 @@ namespace NOTEPAD
             if (redoStack.Count > 0)
             {
                 isUndoRedo = true;
-                undoStack.Push(redoStack.Pop()); // 將重作堆疊最上面的紀錄移出，再堆到回復堆疊
-                rtbText.Text = undoStack.Peek(); // 將回復堆疊最上面一筆紀錄顯示
+                undoStack.Push(redoStack.Pop()); 
+                rtbText.Text = undoStack.Peek();
                 UpdateListBox();
                 isUndoRedo = false;
             }
@@ -134,44 +134,78 @@ namespace NOTEPAD
 
         private void rtbText_TextChanged(object sender, EventArgs e)
         {
-            // 只有當isUndo這個變數是false的時候，才能堆疊文字編輯紀錄
-            if (isUndoRedo == false)
+            
             {
-                undoStack.Push(rtbText.Text); // 將當前的文本內容加入堆疊
-                redoStack.Clear();            // 清空重作堆疊
+                undoStack.Push(rtbText.Text); 
+                redoStack.Clear();           
 
                 // 確保堆疊中只保留最多10個紀錄
                 if (undoStack.Count > MaxHistoryCount)
                 {
-                    // 用一個臨時堆疊，將除了最下面一筆的文字記錄之外，將文字紀錄堆疊由上而下，逐一移除再堆疊到臨時堆疊之中
                     Stack<string> tempStack = new Stack<string>();
                     for (int i = 0; i < MaxHistoryCount; i++)
                     {
                         tempStack.Push(undoStack.Pop());
                     }
-                    undoStack.Clear(); // 清空堆疊
-                                       // 文字編輯堆疊紀錄清空之後，再將暫存堆疊（tempStack）中的資料，逐一放回到文字編輯堆疊紀錄
+                    undoStack.Clear(); 
+                                      
                     foreach (string item in tempStack)
                     {
                         undoStack.Push(item);
                     }
                 }
-                UpdateListBox(); // 更新 ListBox
+                UpdateListBox(); 
             }
         }
 
-        // 更新 ListBox
+        
         void UpdateListBox()
         {
-            listUndo.Items.Clear(); // 清空 ListBox 中的元素
+            listUndo.Items.Clear(); 
 
-            // 將堆疊中的內容逐一添加到 ListBox 中
+         
             foreach (string item in undoStack)
             {
                 listUndo.Items.Add(item);
             }
         }
+
+        private void comboBoxFont_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            
+                foreach (FontFamily font in FontFamily.Families)
+                {
+                    comboBoxFont.Items.Add(font.Name);
+                }
+              
+                comboBoxFont.SelectedIndex = 0;
+            }
+
+        private void comboBoxSize_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+            for (int i = 8; i <= 72; i += 2)
+            {
+                comboBoxSize.Items.Add(i);
+            }
+            
+            comboBoxSize.SelectedIndex = 2;
+        }
+
+        private void comboBoxStyle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+           
+            comboBoxStyle.Items.Add(FontStyle.Regular.ToString());   
+            comboBoxStyle.Items.Add(FontStyle.Bold.ToString());      
+            comboBoxStyle.Items.Add(FontStyle.Italic.ToString());    
+            comboBoxStyle.Items.Add(FontStyle.Underline.ToString()); 
+            comboBoxStyle.Items.Add(FontStyle.Strikeout.ToString()); 
+                                                                     
+            comboBoxStyle.SelectedIndex = 0;
+        }
     }
-}
+    }
+
   
 

@@ -36,13 +36,16 @@
             this.listUndo = new System.Windows.Forms.ListBox();
             this.btnUndo = new System.Windows.Forms.Button();
             this.btnRedo = new System.Windows.Forms.Button();
+            this.comboBoxFont = new System.Windows.Forms.ComboBox();
+            this.comboBoxSize = new System.Windows.Forms.ComboBox();
+            this.comboBoxStyle = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // btnOpen
             // 
-            this.btnOpen.Location = new System.Drawing.Point(12, 12);
+            this.btnOpen.Location = new System.Drawing.Point(561, 15);
             this.btnOpen.Name = "btnOpen";
-            this.btnOpen.Size = new System.Drawing.Size(141, 23);
+            this.btnOpen.Size = new System.Drawing.Size(228, 23);
             this.btnOpen.TabIndex = 0;
             this.btnOpen.Text = "開啟檔案";
             this.btnOpen.UseVisualStyleBackColor = true;
@@ -50,9 +53,9 @@
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(159, 12);
+            this.btnSave.Location = new System.Drawing.Point(561, 44);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(159, 23);
+            this.btnSave.Size = new System.Drawing.Size(228, 23);
             this.btnSave.TabIndex = 1;
             this.btnSave.Text = "存檔按鍵";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -75,16 +78,16 @@
             // 
             this.listUndo.FormattingEnabled = true;
             this.listUndo.ItemHeight = 15;
-            this.listUndo.Location = new System.Drawing.Point(561, 41);
+            this.listUndo.Location = new System.Drawing.Point(561, 131);
             this.listUndo.Name = "listUndo";
-            this.listUndo.Size = new System.Drawing.Size(228, 409);
+            this.listUndo.Size = new System.Drawing.Size(228, 319);
             this.listUndo.TabIndex = 3;
             // 
             // btnUndo
             // 
-            this.btnUndo.Location = new System.Drawing.Point(324, 12);
+            this.btnUndo.Location = new System.Drawing.Point(561, 73);
             this.btnUndo.Name = "btnUndo";
-            this.btnUndo.Size = new System.Drawing.Size(154, 23);
+            this.btnUndo.Size = new System.Drawing.Size(227, 23);
             this.btnUndo.TabIndex = 4;
             this.btnUndo.Text = "復原上一步";
             this.btnUndo.UseVisualStyleBackColor = true;
@@ -92,19 +95,52 @@
             // 
             // btnRedo
             // 
-            this.btnRedo.Location = new System.Drawing.Point(484, 12);
+            this.btnRedo.Location = new System.Drawing.Point(561, 102);
             this.btnRedo.Name = "btnRedo";
-            this.btnRedo.Size = new System.Drawing.Size(133, 23);
+            this.btnRedo.Size = new System.Drawing.Size(228, 23);
             this.btnRedo.TabIndex = 5;
             this.btnRedo.Text = "重作下一步";
             this.btnRedo.UseVisualStyleBackColor = true;
             this.btnRedo.Click += new System.EventHandler(this.btnRedo_Click);
+            // 
+            // comboBoxFont
+            // 
+            this.comboBoxFont.FormattingEnabled = true;
+            this.comboBoxFont.Location = new System.Drawing.Point(12, 12);
+            this.comboBoxFont.Name = "comboBoxFont";
+            this.comboBoxFont.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxFont.TabIndex = 6;
+            this.comboBoxFont.Text = "字型選單";
+            this.comboBoxFont.SelectedIndexChanged += new System.EventHandler(this.comboBoxFont_SelectedIndexChanged);
+            // 
+            // comboBoxSize
+            // 
+            this.comboBoxSize.FormattingEnabled = true;
+            this.comboBoxSize.Location = new System.Drawing.Point(139, 12);
+            this.comboBoxSize.Name = "comboBoxSize";
+            this.comboBoxSize.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxSize.TabIndex = 7;
+            this.comboBoxSize.Text = "字體大小選單";
+            this.comboBoxSize.SelectedIndexChanged += new System.EventHandler(this.comboBoxSize_SelectedIndexChanged);
+            // 
+            // comboBoxStyle
+            // 
+            this.comboBoxStyle.FormattingEnabled = true;
+            this.comboBoxStyle.Location = new System.Drawing.Point(266, 12);
+            this.comboBoxStyle.Name = "comboBoxStyle";
+            this.comboBoxStyle.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxStyle.TabIndex = 8;
+            this.comboBoxStyle.Text = "字體樣式選單";
+            this.comboBoxStyle.SelectedIndexChanged += new System.EventHandler(this.comboBoxStyle_SelectedIndexChanged);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.comboBoxStyle);
+            this.Controls.Add(this.comboBoxSize);
+            this.Controls.Add(this.comboBoxFont);
             this.Controls.Add(this.btnRedo);
             this.Controls.Add(this.btnUndo);
             this.Controls.Add(this.listUndo);
@@ -127,6 +163,9 @@
         private System.Windows.Forms.ListBox listUndo;
         private System.Windows.Forms.Button btnUndo;
         private System.Windows.Forms.Button btnRedo;
+        private System.Windows.Forms.ComboBox comboBoxFont;
+        private System.Windows.Forms.ComboBox comboBoxSize;
+        private System.Windows.Forms.ComboBox comboBoxStyle;
     }
 }
 
