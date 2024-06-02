@@ -121,7 +121,7 @@
             this.comboBoxSize.Size = new System.Drawing.Size(121, 23);
             this.comboBoxSize.TabIndex = 7;
             this.comboBoxSize.Text = "字體大小選單";
-            this.comboBoxSize.SelectedIndexChanged += new System.EventHandler(this.comboBoxSize_SelectedIndexChanged);
+            this.comboBoxSize.SelectedIndexChanged += new System.EventHandler(this.comboBoxFont_SelectedIndexChanged);
             // 
             // comboBoxStyle
             // 
@@ -131,7 +131,7 @@
             this.comboBoxStyle.Size = new System.Drawing.Size(121, 23);
             this.comboBoxStyle.TabIndex = 8;
             this.comboBoxStyle.Text = "字體樣式選單";
-            this.comboBoxStyle.SelectedIndexChanged += new System.EventHandler(this.comboBoxStyle_SelectedIndexChanged);
+            this.comboBoxStyle.SelectedIndexChanged += new System.EventHandler(this.comboBoxFont_SelectedIndexChanged);
             // 
             // Form1
             // 
