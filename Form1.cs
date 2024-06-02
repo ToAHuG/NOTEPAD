@@ -104,54 +104,54 @@ namespace NOTEPAD
                 MessageBox.Show("使用者取消了儲存檔案操作。", "訊息", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             }
         }
-
         private Stack<string> textHistory = new Stack<string>();
-        private const int MaxHistoryCount = 10; // 最多紀錄10個紀錄
+        private const int MaxHistoryCount = 10; 
+        private bool isUndo = false;
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            isUndo = true;
+            if (textHistory.Count > 1)
+            {
+                textHistory.Pop(); 
+                rtbText.Text = textHistory.Peek();               
+            }
+            UpdateListBox(); 
+            isUndo = false;
+        }
 
         private void rtbText_TextChanged(object sender, EventArgs e)
         {
-            // 將當前的文本內容加入堆疊
-            textHistory.Push(rtbText.Text);
-
-            // 確保堆疊中只保留最多10個紀錄
-            if (textHistory.Count > MaxHistoryCount)
+            if (isUndo == false)
             {
-                // 用一個臨時堆疊，將除了最下面一筆的文字記錄之外，將文字紀錄堆疊由上而下，逐一移除再堆疊到臨時堆疊之中
-                Stack<string> tempStack = new Stack<string>();
-                for (int i = 0; i < MaxHistoryCount; i++)
-                {
-                    tempStack.Push(textHistory.Pop());
+               
+                textHistory.Push(rtbText.Text);
+
+                if (textHistory.Count > MaxHistoryCount)
+                {                    
+                    Stack<string> tempStack = new Stack<string>();
+                    for (int i = 0; i < MaxHistoryCount; i++)
+                    {
+                        tempStack.Push(textHistory.Pop());
+                    }
+                    textHistory.Clear(); 
+                    foreach (string item in tempStack)
+                    {
+                        textHistory.Push(item);
+                    }
                 }
-                textHistory.Clear(); // 清空堆疊
-                                     // 文字編輯堆疊紀錄清空之後，再將暫存堆疊（tempStack）中的資料，逐一放回到文字編輯堆疊紀錄
-                foreach (string item in tempStack)
-                {
-                    textHistory.Push(item);
-                }
+                UpdateListBox(); 
             }
-            UpdateListBox(); // 更新 ListBox          
         }
 
-        // 更新 ListBox
         void UpdateListBox()
         {
-            listUndo.Items.Clear(); // 清空 ListBox 中的元素
+            listUndo.Items.Clear(); 
 
-            // 將堆疊中的內容逐一添加到 ListBox 中
+
             foreach (string item in textHistory)
             {
                 listUndo.Items.Add(item);
             }
-        }
-
-        private void btnUndo_Click(object sender, EventArgs e)
-        {
-            if (textHistory.Count > 1)
-            {
-                textHistory.Pop(); // 移除當前的文本內容
-                rtbText.Text = textHistory.Peek(); // 將堆疊頂部的文本內容設置為當前的文本內容                
-            }
-            UpdateListBox(); // 更新 ListBox
         }
     }
     }
