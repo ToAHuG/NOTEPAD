@@ -87,6 +87,7 @@
             this.btnUndo.TabIndex = 4;
             this.btnUndo.Text = "復原上一步";
             this.btnUndo.UseVisualStyleBackColor = true;
+            this.btnUndo.Click += new System.EventHandler(this.btnUndo_Click);
             // 
             // Form1
             // 

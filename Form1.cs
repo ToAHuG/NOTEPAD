@@ -143,6 +143,16 @@ namespace NOTEPAD
                 listUndo.Items.Add(item);
             }
         }
+
+        private void btnUndo_Click(object sender, EventArgs e)
+        {
+            if (textHistory.Count > 1)
+            {
+                textHistory.Pop(); // 移除當前的文本內容
+                rtbText.Text = textHistory.Peek(); // 將堆疊頂部的文本內容設置為當前的文本內容                
+            }
+            UpdateListBox(); // 更新 ListBox
+        }
     }
     }
   
