@@ -66,6 +66,45 @@ namespace NOTEPAD
                 MessageBox.Show("使用者取消了選擇檔案操作。", "訊息", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
             }
         }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+
+            saveFileDialog1.Title = "儲存檔案";
+            saveFileDialog1.Filter = "文字檔案 (*.txt)|*.txt|所有檔案 (*.*)|*.*";
+            saveFileDialog1.FilterIndex = 1;
+            saveFileDialog1.InitialDirectory = "C:\\";
+            saveFileDialog1.FileName = "newfile.txt";
+
+            DialogResult result = saveFileDialog1.ShowDialog();
+
+            if (result == DialogResult.OK)
+            {
+                try
+                {
+                    string selectedFileName = saveFileDialog1.FileName;
+
+                    using (FileStream fileStream = new FileStream(selectedFileName, FileMode.Create, FileAccess.Write))
+                    {
+                        using (StreamWriter streamWriter = new StreamWriter(fileStream, Encoding.UTF8))
+                        {
+                            streamWriter.Write(rtbText.Text);
+                        }
+                    }
+
+                    MessageBox.Show("檔案已成功儲存。", "訊息", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("儲存檔案時發生錯誤: " + ex.Message, "錯誤訊息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("使用者取消了儲存檔案操作。", "訊息", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            }
+        }
     }
-  }
+    }
+  
 
